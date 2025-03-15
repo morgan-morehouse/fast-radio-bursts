@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fast Radio Bursts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .hidden-letter {
+            transition: color 0.2s;
+        }
+        .flash {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fast Radio Bursts</h1>
+    <p id="astro-text">
+        Fast Radio Bursts (FRBs) are extremely powerful, millisecond-duration radio signals from deep space. Their origin remains a mystery, 
+        but they are thought to be associated with highly magnetized neutron stars or other exotic astrophysical sources. Studying FRBs 
+        could unlock secrets about the universe’s structure and extreme physics. Scientists have detected numerous FRBs, yet their precise 
+        sources remain unknown. Understanding these signals requires advanced radio telescopes and careful analysis. The interplay of magnetic 
+        fields and high-energy physics could provide insight into their origins. As research continues, breakthroughs in this field may unlock 
+        new knowledge about the cosmos and extreme astrophysical phenomena.
+    </p>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const secretMessage = "ver yse cret mes sage".replace(/ /g, "");
+            const textElement = document.getElementById("astro-text");
+            let fullText = textElement.innerText.split("");
+            let modifiedText = "";
+            let secretIndex = 0;
+
+            // Wrap the letters of "Very Secret Message" inside spans at appropriate positions
+            for (let i = 0; i < fullText.length; i++) {
+                if (secretIndex < secretMessage.length && fullText[i].toLowerCase() === secretMessage[secretIndex].toLowerCase()) {
+                    modifiedText += `<span class='hidden-letter'>${fullText[i]}</span>`;
+                    secretIndex++;
+                } else {
+                    modifiedText += fullText[i];
+                }
+            }
+            textElement.innerHTML = modifiedText;
+
+            // Flash only the letters in "Very Secret Message" with a slower interval
+            function flashMessage() {
+                const hiddenLetters = document.querySelectorAll(".hidden-letter");
+                hiddenLetters.forEach((span, i) => {
+                    setTimeout(() => {
+                        span.classList.add("flash");
+                        setTimeout(() => {
+                            span.classList.remove("flash");
+                        }, 700); // Slightly longer duration
+                    }, i * 400); // Slower flashing sequence
+                });
+            }
+
+            setInterval(flashMessage, 7000); // Slower repetition interval
+        });
+    </script>
+</body>
+</html>
+
