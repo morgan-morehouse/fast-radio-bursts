@@ -1,71 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fast Radio Bursts</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
-            line-height: 1.6;
-        }
-        .hidden-letter {
-            transition: color 0.2s;
-        }
-        .flash {
-            color: red;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fast Radio Bursts</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0d0d2b;
+      color: #e0e0ff;
+      max-width: 800px;
+      margin: auto;
+      padding: 40px 20px;
+      line-height: 1.8;
+    }
+
+    h1 {
+      text-align: center;
+      color: #7aa7ff;
+      font-size: 2.5em;
+      margin-bottom: 30px;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #7aa7ff;
+    }
+
+    .hidden-letter {
+      transition: color 0.4s ease-in-out;
+    }
+
+    .flash {
+      color: #00bfff;
+    }
+
+    #astro-text {
+      background-color: #1a1a3d;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 191, 255, 0.2);
+      font-size: 1.1em;
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.9em;
+      color: #8888aa;
+    }
+  </style>
 </head>
 <body>
-    <h1>Fast Radio Bursts</h1>
-    <p id="astro-text">
-        Fast Radio Bursts (FRBs) are extremely powerful, millisecond-duration radio signals from deep space. Their origin remains a mystery, 
-        but they are thought to be associated with highly magnetized neutron stars or other exotic astrophysical sources. Studying FRBs 
-        could unlock secrets about the universe’s structure and extreme physics. Scientists have detected numerous FRBs, yet their precise 
-        sources remain unknown. Understanding these signals requires advanced radio telescopes and careful analysis. The interplay of magnetic 
-        fields and high-energy physics could provide insight into their origins. As research continues, breakthroughs in this field may unlock 
-        new knowledge about the cosmos and extreme astrophysical phenomena.
-    </p>
+  <h1>Fast Radio Bursts</h1>
+  <p id="astro-text">
+    Fast Radio Bursts (FRBs) are extremely powerful, millisecond-duration radio signals from deep space. Their origin remains a mystery, 
+    but they are thought to be associated with highly magnetized neutron stars or other exotic astrophysical sources. Studying FRBs 
+    could unlock secrets about the universe’s structure and extreme physics. Scientists have detected numerous FRBs, yet their precise 
+    sources remain unknown. Understanding these signals requires advanced radio telescopes and careful analysis. The interplay of magnetic 
+    fields and high-energy physics could provide insight into their origins. As research continues, breakthroughs in this field may unlock 
+    new knowledge about the cosmos and extreme astrophysical phenomena.
+  </p>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const secretMessage = "ver yse cret mes sage".replace(/ /g, "");
-            const textElement = document.getElementById("astro-text");
-            let fullText = textElement.innerText.split("");
-            let modifiedText = "";
-            let secretIndex = 0;
+  <footer>
+    Inspired by the mystery of cosmic signals and hidden messages.
+  </footer>
 
-            // Wrap the letters of "Very Secret Message" inside spans at appropriate positions
-            for (let i = 0; i < fullText.length; i++) {
-                if (secretIndex < secretMessage.length && fullText[i].toLowerCase() === secretMessage[secretIndex].toLowerCase()) {
-                    modifiedText += `<span class='hidden-letter'>${fullText[i]}</span>`;
-                    secretIndex++;
-                } else {
-                    modifiedText += fullText[i];
-                }
-            }
-            textElement.innerHTML = modifiedText;
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const secretMessage = "verysecretmessage";
+      const textElement = document.getElementById("astro-text");
+      let fullText = textElement.innerText.split("");
+      let modifiedText = "";
+      let secretIndex = 0;
 
-            // Flash only the letters in "Very Secret Message" with a slower interval
-            function flashMessage() {
-                const hiddenLetters = document.querySelectorAll(".hidden-letter");
-                hiddenLetters.forEach((span, i) => {
-                    setTimeout(() => {
-                        span.classList.add("flash");
-                        setTimeout(() => {
-                            span.classList.remove("flash");
-                        }, 700); // Slightly longer duration
-                    }, i * 400); // Slower flashing sequence
-                });
-            }
+      for (let i = 0; i < fullText.length; i++) {
+        if (
+          secretIndex < secretMessage.length &&
+          fullText[i].toLowerCase() === secretMessage[secretIndex]
+        ) {
+          modifiedText += `<span class='hidden-letter'>${fullText[i]}</span>`;
+          secretIndex++;
+        } else {
+          modifiedText += fullText[i];
+        }
+      }
 
-            setInterval(flashMessage, 7000); // Slower repetition interval
+      textElement.innerHTML = modifiedText;
+
+      function flashMessage() {
+        const hiddenLetters = document.querySelectorAll(".hidden-letter");
+        hiddenLetters.forEach((span, i) => {
+          setTimeout(() => {
+            span.classList.add("flash");
+            setTimeout(() => {
+              span.classList.remove("flash");
+            }, 700);
+          }, i * 400);
         });
-    </script>
+      }
+
+      setInterval(flashMessage, 7000);
+    });
+  </script>
 </body>
 </html>
-
