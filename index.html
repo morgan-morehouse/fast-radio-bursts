@@ -86,7 +86,7 @@
   </p>
 
   <script>
-    // Background stars
+    // STAR BACKGROUND
     const canvas = document.getElementById("star-canvas");
     const ctx = canvas.getContext("2d");
     let stars = [];
@@ -95,13 +95,13 @@
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
       stars = [];
-      for (let i = 0; i < 100; i++) {
+      for (let i = 0; i < 120; i++) {
         stars.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          radius: 1 + Math.random() * 2.5, // Bigger stars
-          alpha: 0.6 + Math.random() * 0.4, // Brighter
-          delta: Math.random() * 0.015 + 0.005
+          radius: Math.random() * 2.2 + 0.3, // More variety (0.3 to 2.5)
+          alpha: 0.4 + Math.random() * 0.3,   // Slightly dimmer overall
+          delta: Math.random() * 0.012 + 0.004
         });
       }
     }
@@ -114,7 +114,7 @@
         ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
         ctx.fill();
         star.alpha += star.delta;
-        if (star.alpha <= 0.3 || star.alpha >= 1) star.delta = -star.delta;
+        if (star.alpha <= 0.2 || star.alpha >= 0.7) star.delta = -star.delta;
       }
       requestAnimationFrame(drawStars);
     }
@@ -123,7 +123,7 @@
     resizeCanvas();
     drawStars();
 
-    // Flashing message
+    // FLASHING HIDDEN MESSAGE
     document.addEventListener("DOMContentLoaded", function () {
       const secretMessage = "verysecretmessage";
       const textElement = document.getElementById("astro-text");
