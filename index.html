@@ -54,29 +54,6 @@
       color: #68c1fc;
     }
 
-    .ripple {
-      content: "";
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: rgba(104, 193, 252, 0.5);
-      animation: ripple 0.8s ease-out;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    @keyframes ripple {
-      0% {
-        transform: scale(0);
-        opacity: 1;
-      }
-      100% {
-        transform: scale(6);
-        opacity: 0;
-      }
-    }
-
     .star {
       position: absolute;
       background: white;
@@ -150,14 +127,8 @@
         hiddenLetters.forEach((span, i) => {
           setTimeout(() => {
             span.classList.add("flash");
-            const ripple = document.createElement("div");
-            ripple.classList.add("ripple");
-            ripple.style.left = span.offsetLeft + span.offsetWidth / 2 + "px";
-            ripple.style.top = span.offsetTop + span.offsetHeight / 2 + "px";
-            span.appendChild(ripple);
             setTimeout(() => {
               span.classList.remove("flash");
-              ripple.remove();
             }, 900);
           }, i * 320);
         });
