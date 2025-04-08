@@ -15,12 +15,23 @@
       overflow-x: hidden;
     }
 
+    #star-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+    }
+
     body {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
       padding: 5vh 5vw;
+      z-index: 1;
+      position: relative;
     }
 
     h1 {
@@ -29,10 +40,11 @@
       text-align: center;
       width: 100%;
       margin-bottom: 2vh;
+      z-index: 2;
     }
 
     #astro-text {
-      background-color: #1a1a3d;
+      background-color: rgba(26, 26, 61, 0.85);
       padding: 40px;
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
@@ -40,6 +52,7 @@
       line-height: 1.9;
       width: 100%;
       max-width: 1000px;
+      z-index: 2;
     }
 
     .hidden-letter {
@@ -55,10 +68,13 @@
       text-align: center;
       font-size: 0.9em;
       color: #8888aa;
+      z-index: 2;
     }
   </style>
 </head>
 <body>
+  <canvas id="star-canvas"></canvas>
+
   <h1>Fast Radio Bursts</h1>
   <p id="astro-text">
     Fast Radio Bursts (FRBs) are extremely powerful, millisecond-duration radio signals from deep space. Their origin remains a mystery, 
@@ -69,7 +85,49 @@
     new knowledge about the cosmos and extreme astrophysical phenomena.
   </p>
 
+  <footer>
+    Inspired by the mystery of cosmic signals and hidden messages.
+  </footer>
+
   <script>
+    // Background stars
+    const canvas = document.getElementById("star-canvas");
+    const ctx = canvas.getContext("2d");
+    let stars = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      stars = [];
+      for (let i = 0; i < 150; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 1.5,
+          alpha: Math.random(),
+          delta: Math.random() * 0.02
+        });
+      }
+    }
+
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let star of stars) {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+        ctx.fill();
+        star.alpha += star.delta;
+        if (star.alpha <= 0 || star.alpha >= 1) star.delta = -star.delta;
+      }
+      requestAnimationFrame(drawStars);
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+    drawStars();
+
+    // Flashing message
     document.addEventListener("DOMContentLoaded", function () {
       const secretMessage = "verysecretmessage";
       const textElement = document.getElementById("astro-text");
